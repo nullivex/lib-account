@@ -2,15 +2,31 @@
 
 class Contact {
 
+	protected static function _fetch(&$pairs,$all=false){
+		$select = 'SELECT * FROM `contacts`';
+		$where = Db::prepwhere($pairs);
+		$func = ($all?'fetchAll':'fetch');
+		return Db::_get()->$func($select.array_shift($where),$where);
+	}
+	
+	protected static function fetch($pairs=array()){
+		return self::_fetch(&$pairs,false);
+	}
+
+	protected static function fetchAll($pairs=array()){
+		return self::_fetch(&$pairs,true);
+	}
+
 	public static function allByAccount($account_id){
-		return Db::_get()->fetchAll(
-			 'SELECT * FROM contacts WHERE contact_account_id=? AND contact_is_active=?'
-			,array($account_id,1)
+		return self::fetchAll(array(
+			 'contact_account_id'	=> $account_id
+			,'contact_is_active'	=> 1
+			)
 		);
 	}
 	
 	public static function get($contact_id){
-		return Db::_get()->fetch('SELECT * FROM contacts WHERE contact_id = ?',array($contact_id));
+		return self::fetch(array('contact_id'=>$contact_id));
 	}
 	
 	public static function createParams(){
