@@ -205,9 +205,20 @@ abstract class Contact {
 	final public static function formatBlock(&$contact){
 		return strlen(($address = 
 			 ( mda_get($contact,'address_name') ? 	   mda_get($contact,'address_name')	.PHP_EOL	: '' )
-			.( mda_get($contact,'address_1') 	? '  '.mda_get($contact,'address_1')	.PHP_EOL 	: '' )
-			.( mda_get($contact,'address_2') 	? '  '.mda_get($contact,'address_2') 	.PHP_EOL	: '' )
-			.( mda_get($contact,'city') 		? ''  .mda_get($contact,'city') 					: '' )
+			.( mda_get($contact,'address_1') 	?	   mda_get($contact,'address_1')	.PHP_EOL 	: '' )
+			.( mda_get($contact,'address_2') 	?	   mda_get($contact,'address_2') 	.PHP_EOL	: '' )
+			.( mda_get($contact,'city') 		?	   mda_get($contact,'city') 					: '' )
+			.( mda_get($contact,'state') 		? ', '.mda_get($contact,'state') 					: '' )
+			.( mda_get($contact,'zip') 			? '  '.mda_get($contact,'zip') 						: '' )
+			.( mda_get($contact,'country') 		? '  '.mda_get($contact,'country') 					: '' )
+		)) > 0 ? $address.PHP_EOL : '';
+	}
+
+	final public static function formatBlockShort(&$contact){
+		return strlen(($address = 
+			 ( mda_get($contact,'address_1') 	?	   mda_get($contact,'address_1')	.PHP_EOL 	: '' )
+			.( mda_get($contact,'address_2') 	?	   mda_get($contact,'address_2') 	.PHP_EOL	: '' )
+			.( mda_get($contact,'city') 		?	   mda_get($contact,'city') 					: '' )
 			.( mda_get($contact,'state') 		? ', '.mda_get($contact,'state') 					: '' )
 			.( mda_get($contact,'zip') 			? '  '.mda_get($contact,'zip') 						: '' )
 			.( mda_get($contact,'country') 		? '  '.mda_get($contact,'country') 					: '' )
