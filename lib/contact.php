@@ -10,11 +10,14 @@ abstract class Contact {
 	const FA_LINE_SHORT 	= 'formatLineShort';
 	const FA_LINE_LONG 		= 'formatLineLong';
 	const FA_BLOCK 			= 'formatBlock';
+	const FA_BLOCK_MEDIUM	= 'formatBlockMedium';
+	const FA_BLOCK_SHORT	= 'formatBlockShort';
 	const FA_NAME 			= 'formatName';
 	const FA_NAME_EMAIL		= 'formatNameEmail';
 
-	static $accounts_table = 'clients';
-	static $contacts_table = 'contacts';
+	static $accounts_table	= NULL;
+	static $contacts_table	= 'contacts';
+	static $account_key		= NULL;
 
 	final protected static function _fetch(&$pairs,$all=false){
 		$select = 'SELECT * FROM `'.static::$contacts_table.'`';
@@ -24,17 +27,16 @@ abstract class Contact {
 	}
 	
 	final protected static function fetch($pairs=array()){
-		return self::_fetch(&$pairs,false);
+		return self::addMacroFields(self::_fetch(&$pairs));
 	}
 
 	final protected static function fetchAll($pairs=array()){
-		return self::_fetch(&$pairs,true);
+		return self::addMacroFields(self::_fetch(&$pairs,true),true);
 	}
 
 	final public static function allByAccount($account_id){
 		return self::fetchAll(array(
-			 'contact_account_id'		=> $account_id
-			,'contact_account_table'	=> static::$accounts_table
+			 static::$account_key			=> $account_id
 			,'contact_is_active'		=> 1
 			)
 		);
@@ -43,8 +45,7 @@ abstract class Contact {
 	final public static function allByAccountAndType($account_id,$contact_type){
 		if(!is_array($contact_type)) $contact_type = array($contact_type);
 		return self::fetchAll(array(
-			 'contact_account_id'		=> $account_id
-			,'contact_account_table'	=> static::$accounts_table
+			 static::$account_key			=> $account_id
 			,'contact_type'				=> array('AND',Db::IN,$contact_type)
 			,'contact_is_active'		=> 1
 			)
@@ -61,6 +62,7 @@ abstract class Contact {
 			,'last_name'	=> ''
 			,'email'		=> ''
 			,'phone'		=> ''
+			,'fax'			=> ''
 			,'address_name'	=> ''
 			,'address_1'	=> ''
 			,'address_2'	=> ''
@@ -74,6 +76,7 @@ abstract class Contact {
 	final public static function digest(&$data){
 		return hash('sha1'
 			,mda_get($data,'phone')
+			.mda_get($data,'fax')
 			.mda_get($data,'address_name')
 			.mda_get($data,'address_1')
 			.mda_get($data,'address_2')
@@ -89,8 +92,7 @@ abstract class Contact {
 		return Db::_get()->insert(
 			 static::$contacts_table
 			,array(
-				 'contact_account_id'		=> $account_id
-				,'contact_account_table'	=> static::$accounts_table
+				 static::$account_key		=> $account_id
 				,'first_name'				=> mda_get($data,'first_name')
 				,'last_name'				=> mda_get($data,'last_name')
 				,'email'					=> mda_get($data,'email')
@@ -99,6 +101,7 @@ abstract class Contact {
 				,'contact_created'			=> $now
 				,'contact_updated'			=> $now
 				,'phone'					=> mda_get($data,'phone')
+				,'fax'						=> mda_get($data,'fax')
 				,'address_name'				=> mda_get($data,'address_name')
 				,'address_1'				=> mda_get($data,'address_1')
 				,'address_2'				=> mda_get($data,'address_2')
@@ -122,6 +125,7 @@ abstract class Contact {
 				,'last_name'		=> mda_get($data,'last_name')
 				,'email'			=> mda_get($data,'email')
 				,'phone'			=> mda_get($data,'phone')
+				,'fax'				=> mda_get($data,'fax')
 				,'address_name'		=> mda_get($data,'address_name')
 				,'address_1'		=> mda_get($data,'address_1')
 				,'address_2'		=> mda_get($data,'address_2')
@@ -156,6 +160,18 @@ abstract class Contact {
 		$drop->setValue($value);
 		return $drop;
 	}
+
+	final protected static function addMacroFields($arr,$all=false){
+		if($all){
+			foreach($arr as &$row) $row = self::addMacroFields($row);
+			return $arr;
+		}
+		//add legacy account_id reference that also generalizes
+		if(!is_null(static::$account_key))
+			$arr['contact_account_id'] = $arr[static::$account_key];
+		return $arr;
+	}
+
 	
 	//---------------------------
 	//FORMATTING FUNCTIONS
@@ -210,7 +226,22 @@ abstract class Contact {
 			.( mda_get($contact,'city') 		?	   mda_get($contact,'city') 					: '' )
 			.( mda_get($contact,'state') 		? ', '.mda_get($contact,'state') 					: '' )
 			.( mda_get($contact,'zip') 			? '  '.mda_get($contact,'zip') 						: '' )
-			.( mda_get($contact,'country') 		? '  '.mda_get($contact,'country') 					: '' )
+			.( mda_get($contact,'country') 		? '  '.mda_get($contact,'country') 		.PHP_EOL	: '' )
+			.( mda_get($contact,'phone')		? 'Phone: '.mda_get($contact,'phone')	.PHP_EOL	: '' )
+			.( mda_get($contact,'fax')			? 'Fax: '.mda_get($contact,'fax')		.PHP_EOL	: '' )
+		)) > 0 ? $address.PHP_EOL : '';
+	}
+
+	final public static function formatBlockMedium(&$contact){
+		return strlen(($address = 
+			 ( mda_get($contact,'address_1') 	?	   mda_get($contact,'address_1')	.PHP_EOL 	: '' )
+			.( mda_get($contact,'address_2') 	?	   mda_get($contact,'address_2') 	.PHP_EOL	: '' )
+			.( mda_get($contact,'city') 		?	   mda_get($contact,'city') 					: '' )
+			.( mda_get($contact,'state') 		? ', '.mda_get($contact,'state') 					: '' )
+			.( mda_get($contact,'zip') 			? '  '.mda_get($contact,'zip') 						: '' )
+			.( mda_get($contact,'country') 		? '  '.mda_get($contact,'country') 		.PHP_EOL	: '' )
+			.( mda_get($contact,'phone')		? 'Phone: '.mda_get($contact,'phone')	.PHP_EOL	: '' )
+			.( mda_get($contact,'fax')			? 'Fax: '.mda_get($contact,'fax')		.PHP_EOL	: '' )
 		)) > 0 ? $address.PHP_EOL : '';
 	}
 
