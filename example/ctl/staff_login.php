@@ -26,6 +26,9 @@ if(post('login')){
 }
 
 session('login_referrer',server('HTTP_REFERER'));
+page_header_admin(false);
 Tpl::_get()->parse('login','page');
-page_load_css_admin();
+page_footer_admin();
+Tpl::_get()->addCss(Config::get('tpl','theme_path').'/css/maruti-login.css');
+Tpl::_get()->addJs('/js/maruti.login.js');
 output(Tpl::_get()->output());
