@@ -35,6 +35,12 @@ if(post('edit')){
 
 $params = Staff::get(StaffSession::get('staff_id'));
 $params = array_merge($params,post());
+foreach(array(
+	 'primary_contact_id'
+	,'is_manager'
+	,'is_active'
+	,'last_login'
+	) as $x) unset($params[$x]);
 Tpl::_get()->parse('staff','profile',$params);
 
 page_footer_admin();
