@@ -1,0 +1,48 @@
+<tal:block metal:define-macro="profile">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-title"> <span class="icon"> <i class="icon-edit"></i> </span>
+						<h5>Your Details</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<form action="{url_profile}" method="post" class="form-horizontal">
+							<input type="hidden" name="edit" value="true" />
+							<input tal:condition="exists: client_id" type="hidden" name="client_id" tal:attributes="value client_id" />
+							<input tal:condition="exists: staff_id" type="hidden" name="staff_id" tal:attributes="value staff_id" />
+							<div class="control-group">
+								<label class="control-label">Name :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Name" name="name" tal:attributes="value name" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Email :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Email" name="email" tal:attributes="value email" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Password :</label>
+								<div class="controls">
+									<input type="text" class="span11" name="password" value="" />
+									<br/><small>blank to preserve</small>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Confirm Password :</label>
+								<div class="controls">
+									<input type="text" class="span11" name="confirm_password" value="" />
+								</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</tal:block>
