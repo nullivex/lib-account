@@ -21,8 +21,6 @@
 
 lib('staff');
 
-page_header_admin();
-
 if(post('edit')){
 	try {
 		Staff::update(post('staff_id'),post());
@@ -33,15 +31,5 @@ if(post('edit')){
 	}
 }
 
-$params = Staff::get(StaffSession::get('staff_id'));
-$params = array_merge($params,post());
-foreach(array(
-	 'primary_contact_id'
-	,'is_manager'
-	,'is_active'
-	,'last_login'
-	) as $x) unset($params[$x]);
-Tpl::_get()->parse('staff','profile',$params);
-
-page_footer_admin();
-output(Tpl::_get()->output());
+$params = array_merge(Staff::get(StaffSession::get('staff_id')),post());
+Tpl::_get()->output('staff_profile.xhtml',$params,Tpl::OUTPUT_DIRECT);
