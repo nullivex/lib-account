@@ -38,24 +38,11 @@ Tpl::_get()->addJs('/js/maruti.login.js');
 output(Tpl::_get()->output());
  */
 
-//load new templating engine
-require_once(ROOT.'/usr/phptal/PHPTAL.php');
-
-$script_stats = 'Execution: 0.00613 | Queries: 0 | Memory: 1.58MB';
-
-$tpl = new PHPTAL(ROOT_GROUP.'/theme/default/login.xhtml');
-$tpl->theme_uri = '/theme/default';
-$tpl->site_title = Config::get('info','site_name').' Admin Login';
-$tpl->site_name = Config::get('info','site_name');
-$tpl->url_login = Url::login();
-$tpl->copyright = '© '.date('Y').' '.Config::get('info','site_name');
-$tpl->script_info = sprintf('Vidcache: v%s | OpenLSS: v%s | %s',VERSION,LSS_VERSION,$script_stats);
-$out = $tpl->execute();
-
-//cleanup the output
-$tidy = new tidy();
-$tidy->parseString($out,array('indent'=>true,'output-xml'=>true,'numeric-entities'=>true,'preserve-entities'=>true,'wrap'=>300),'utf8');
-$tidy->cleanRepair();
-
-//output
-echo $tidy;
+$params = array();
+$params['url_login'] = Url::login();
+$params['page_title'] = "Vidcache Management - Staff Login";
+$tpl = Tpl::_get();
+$tpl->addCss($tpl->uri.'/css/maruti-login.css');
+$tpl->addJs($tpl->uri.'/js/maruti.login.js');
+$tpl->setStub('body',false);
+$tpl->output('login.xhtml',$params,Tpl::OUTPUT_DIRECT);
