@@ -27,22 +27,7 @@ if(post('login')){
 
 session('login_referrer',server('HTTP_REFERER'));
 
-/* OLD templating stuff
-page_header_admin(false);
-$params = array('url_login'=>htmlentities(Url::login()));
-Tpl::_get()->parse('login','page',$params);
-page_footer_admin(false);
-Tpl::_get()->parse('login','page_end');
-Tpl::_get()->addCss(Config::get('tpl','theme_path').'/css/maruti-login.css');
-Tpl::_get()->addJs('/js/maruti.login.js');
-output(Tpl::_get()->output());
- */
-
 $params = array();
 $params['url_login'] = Url::login();
-$params['page_title'] = "Vidcache Management - Staff Login";
-$tpl = Tpl::_get();
-$tpl->addCss($tpl->uri.'/css/maruti-login.css');
-$tpl->addJs($tpl->uri.'/js/maruti.login.js');
-$tpl->setStub('body',false);
-$tpl->output('login.xhtml',$params,Tpl::OUTPUT_DIRECT);
+$params['page_title'] = Config::get('info','site_name').' - Admin Login';
+Tpl::_get()->output('staff_login',$params);
