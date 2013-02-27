@@ -32,4 +32,4 @@ if(post('edit')){
 }
 
 $params = array_merge(Staff::get(StaffSession::get('staff_id')),post());
-Tpl::_get()->output('staff_profile.xhtml',$params,Tpl::OUTPUT_DIRECT);
+Tpl::_get()->output('staff_profile',$params);
