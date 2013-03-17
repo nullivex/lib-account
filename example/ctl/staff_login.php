@@ -29,5 +29,5 @@ session('login_referrer',server('HTTP_REFERER'));
 
 $params = array();
 $params['url_login'] = Url::login();
-$params['page_title'] = Config::get('info','site_name').' - Admin Login';
+$params['page_title'] = Config::get('site_name').' - Admin Login';
 Tpl::_get()->output('staff_login',$params);
