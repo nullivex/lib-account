@@ -177,7 +177,7 @@ abstract class Account {
 
 	final public static function contactDrop($account_id=null,$value=null,$name='contact_id'){
 		if(is_null($account_id)) return false;
-		lib('ui_form_drop');
+		ld('ui_form_drop');
 		$arr = array();
 		foreach(self::getContacts($account_id) as $contact) $arr[$contact['contact_id']] = $contact['first_name'].' '.$contact['last_name'].' <'.$contact['email'].'>';
 		$drop = FormDrop::_get()->setOptions($arr);
