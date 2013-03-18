@@ -1,7 +1,7 @@
 <?php
 
-lib('staff');
-lib('staff_session');
+ld('staff');
+ld('staff_session');
 
 if(post('login')){
 	try {
