@@ -19,7 +19,7 @@
  *   along with OpenLSS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-lib('staff');
+ld('staff');
 
 if(post('edit')){
 	try {
