@@ -1,6 +1,6 @@
 <?php
 
-lib('session');
+ld('session');
 
 abstract class ClientSession extends Session {
 	public static function init(){
