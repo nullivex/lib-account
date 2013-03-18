@@ -1,7 +1,5 @@
 <?php
-
-ld('staff');
-ld('staff_session');
+ld('staff','staff_session');
 
 if(post('login')){
 	try {
