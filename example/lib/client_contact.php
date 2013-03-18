@@ -1,5 +1,5 @@
 <?php
-lib('contact');
+ld('contact');
 
 abstract class ClientContact extends Contact {
 
