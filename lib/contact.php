@@ -151,7 +151,7 @@ abstract class Contact {
 	}
 
 	final public static function contactDrop($account_id=null,$contact_type=null,$value=null,$name='contact_id',$format=self::FA_NAME){
-		lib('ui_form_drop');
+		ld('ui_form_drop');
 		$arr = array();
 		foreach(self::allByAccountAndType($account_id,array($contact_type,self::BOTH)) as $contact)
 			$arr[$contact['contact_id']] = self::$format($contact);
