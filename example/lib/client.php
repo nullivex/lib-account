@@ -1,5 +1,5 @@
 <?php
-lib('account');
+ld('account');
 
 abstract class Client extends Account implements AccountInterface {
 
