@@ -19,17 +19,8 @@
  *	If not, see <http://www.gnu.org/licenses/>.
 */
 namespace LSS;
-ld('session','url');
+ld('client_session','func/ui','url');
 
-abstract class ClientSession extends Session {
-	public static function init(){
-		self::$config_name		= 'client';
-		self::$session_name		= 'client_token';
-		self::$session_table	= 'client_session';
-		self::$user_primary_key	= 'contact_id';
-		self::$urls_nologin		= array(Url::login(),Url::signup());
-	}
-}
-
-//overrides the parent vars
-ClientSession::init();
+ClientSession::tokenDestroy(ClientSession::getTokenFromSession());
+ClientSession::destroySession();
+redirect(Url::login());

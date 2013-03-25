@@ -1,8 +1,10 @@
 <?php
 
-Url::_register('staff',Url::home().'?act=staff');
-Url::_register('staff_create',Url::staff().'&do=create');
-Url::_register('staff_edit',Url::staff().'&do=edit&staff_id=$1');
-Url::_register('profile',Url::staff().'&do=profile');
-Url::_register('login',Url::staff().'&do=login');
-Url::_register('logout',Url::staff().'&do=logout');
+//register Url::home() if not already
+if(!Url::_isCallable('home'))
+	Url::_register('home','/index.php')i;
+
+Url::_register('client',Url::home().'?act=client');
+Url::_register('profile',Url::client().'&do=profile');
+Url::_register('login',Url::client().'&do=login');
+Url::_register('logout',Url::client().'&do=logout');

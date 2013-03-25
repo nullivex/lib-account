@@ -20,8 +20,36 @@ SQL files are included as well
 
 The account suite also interfaces quite nicely with openlss/lib-session for a complete working interface
 to show this the following examples are also included
-  * example/lib/client_session.php		The session extension (requires openlss/lib-session >= 0.0.1)
+  * example/lib/client_session.php		The session extension
+   * Requires
+    * openlss/lib-session
+    * openlss/lib-url
+  * example/init/90_client_session.php	An init handler for starting and checking the session
+   * Requires
+    * openlss/func-ui 
+    * openlss/lib-config
+    * openlss/lib-url
+  * example/url/50_client_session.php	URL definitions to work with the sessions
+   * Requires
+    * openlss/lib-url
   * example/client_session.sql			The schema the client_session extension uses
+  * example/ctl/client_login.php		Example login controller
+   * Requires
+    * openlss/func-mda-glob
+    * openlss/func-ui
+    * openlss/lib-tpl
+    * openlss/lib-url
+  * example/ctl/client_logout.php		Example logout controller
+   * Requires
+    * openlss/func-ui
+    * openlss/lib-url
+  * example/ctl/client_profile.php		Example profile manager
+   * Requires
+    * openlss/func-ui
+    * openlss/lib-tpl
+    * openlss/lib-url
+  * example/theme/client_login.xhtml	Example Login Template
+  * example/theme/client_profile.xhtml	Example Profile Template
 
 Usage
 ====

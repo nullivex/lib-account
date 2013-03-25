@@ -19,17 +19,17 @@
  *	If not, see <http://www.gnu.org/licenses/>.
 */
 namespace LSS;
-ld('session','url');
+ld('client','client_session','func/ui','tpl','url');
 
-abstract class ClientSession extends Session {
-	public static function init(){
-		self::$config_name		= 'client';
-		self::$session_name		= 'client_token';
-		self::$session_table	= 'client_session';
-		self::$user_primary_key	= 'contact_id';
-		self::$urls_nologin		= array(Url::login(),Url::signup());
+if(post('edit')){
+	try {
+		Client::update(post('client_id'),post());
+		alert('client profile updated successfully',true,true);
+		redirect(Url::profile());
+	} catch (Exception $e){
+		alert($e->getMessage(),false);
 	}
 }
 
-//overrides the parent vars
-ClientSession::init();
+$params = array_merge(Client::get(ClientSession::get('client_id')),post());
+Tpl::_get()->output('client_profile',$params);

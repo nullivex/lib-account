@@ -1,24 +1,30 @@
 <?php
+/**
+ *  OpenLSS - Lighter Smarter Simpler
+ *
+ *	This file is part of OpenLSS.
+ *
+ *	OpenLSS is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU Lesser General Public License as
+ *	published by the Free Software Foundation, either version 3 of
+ *	the License, or (at your option) any later version.
+ *
+ *	OpenLSS is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU Lesser General Public License for more details.
+ *
+ *	You should have received a copy of the 
+ *	GNU Lesser General Public License along with OpenLSS.
+ *	If not, see <http://www.gnu.org/licenses/>.
+*/
+namespace LSS;
 ld('account');
 
 abstract class Client extends Account implements AccountInterface {
 
 	static $accounts_table = 'clients';
 	static $account_key = 'client_id';
-
-	public static function adminHeaderParams($client_id,$company){
-		return array(
-			 'client_id'				=> $client_id
-			,'client_company'			=> $company
-			,'url_client_ticket_create'	=> Url::client_ticket_create($client_id)
-			,'url_client_ticket_list'	=> Url::client_ticket_list($client_id)
-			,'url_client_file_list'		=> Url::client_file_list($client_id)
-			,'url_client_embed_tpl_list'=> Url::client_embed_tpl_list($client_id)
-			,'url_client_manage'		=> Url::client_manage($client_id)
-			,'url_client_edit'			=> Url::client_edit($client_id)
-			,'url_client_api'			=> Url::client_api($client_id)
-		);
-	}
 
 	public static function createParams(){
 		return self::_createParams(array(
