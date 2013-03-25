@@ -1,0 +1,35 @@
+{
+	 "name":				"openlss/lib-account"
+	,"homepage":			"http://openlss.org"
+	,"description":			"Account management abstract library also manages contacts"
+	,"license":				"LGPLv2"
+	,"type":				"library"
+	,"keywords": [
+		 "account"
+		,"client"
+		,"staff"
+		,"account management"
+		,"contacts"
+		,"contact management"
+	]
+	,"authors": [
+		 {
+			 "name":		"Bryan Tong"
+			,"email":		"contact@nullivex.com"
+			,"homepage":	"http://bryantong.com"
+		}
+		,{
+			 "name":		"Tony Butler"
+			,"email":		"spudz76@gmail.com"
+			,"homepage":	"http://openlss.org"
+		}
+	]
+	,"require": {
+		 "php":					">=5.3.2"
+		,"openlss/func-bcrypt":	">=0.0.1"
+		,"openlss/func-mda":	">=0.0.1"
+		,"openlss/lib-config":	">=0.0.1"
+		,"openlss/lib-db":		">=0.0.1"
+
+	}
+}
