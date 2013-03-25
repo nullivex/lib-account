@@ -9,6 +9,20 @@ such as Staff, Clients, Members, Subscribers, etc.
 It is not intended to be used by itself, however the functions
 are documented here as they are inherited by extenders.
 
+Check example/lib/clients.php for an example of extension (this can be used as-is)
+
+Check example/lib/client_contact.php for an example of extending lib/contact.php
+which is also available with this package.
+
+SQL files are included as well
+  * example/clients.sql		The schema the clients extension works with
+  * example/contacts.sql	The schema the client_contact extension works with
+
+The account suite also interfaces quite nicely with openlss/lib-session for a complete working interface
+to show this the following examples are also included
+  * example/lib/client_session.php		The session extension (requires openlss/lib-session >= 0.0.1)
+  * example/client_session.sql			The schema the client_session extension uses
+
 Usage
 ====
 
