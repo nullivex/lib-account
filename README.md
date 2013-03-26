@@ -50,6 +50,7 @@ to show this the following examples are also included
     * openlss/lib-url
   * example/theme/client_login.xhtml	Example Login Template
   * example/theme/client_profile.xhtml	Example Profile Template
+  * example/theme/account_profile.xhtml	Example account profile parent template
 
 Usage
 ====
