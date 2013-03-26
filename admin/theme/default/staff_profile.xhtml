@@ -1,9 +1,0 @@
-<tal:block metal:use-macro="structure.xhtml/page">
-	<tal:block metal:fill-slot="breadcrumb">
-		<a href="/" title="Home" class="tip-bottom"><i class="icon-home">&#160;</i> Home</a>
-		<a href="" class="current" tal:attributes="href url/profile">Profile</a>
-	</tal:block>
-	<tal:block metal:fill-slot="content">
-		<tal:block metal:use-macro="account_profile.xhtml/profile" />
-	</tal:block>
-</tal:block>

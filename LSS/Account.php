@@ -19,7 +19,6 @@
  *	If not, see <http://www.gnu.org/licenses/>.
  */
 namespace LSS;
-ld('db','func/bcrypt','func/mda');
 
 interface AccountInterface {
 	public static function createParams();
