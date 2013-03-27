@@ -17,9 +17,11 @@
  *	You should have received a copy of the 
  *	GNU Lesser General Public License along with OpenLSS.
  *	If not, see <http://www.gnu.org/licenses/>.
-*/
-namespace LSS;
-ld('client','client_session','func/mda_glob','func/ui','tpl','url');
+ */
+use \LSS\Account\Client;
+use \LSS\Account\ClientSession;
+use \LSS\Tpl;
+use \LSS\Url;
 
 if(post('login')){
 	try {

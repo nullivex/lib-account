@@ -17,11 +17,10 @@
  *	You should have received a copy of the 
  *	GNU Lesser General Public License along with OpenLSS.
  *	If not, see <http://www.gnu.org/licenses/>.
-*/
-namespace LSS;
-ld('contact');
+ */
+namespace LSS\Account;
 
-abstract class ClientContact extends Contact {
+abstract class ClientContact extends \LSS\Contact {
 
 	static $accounts_table	= 'clients';
 	static $account_key		= 'client_id';

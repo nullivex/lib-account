@@ -17,11 +17,12 @@
  *	You should have received a copy of the 
  *	GNU Lesser General Public License along with OpenLSS.
  *	If not, see <http://www.gnu.org/licenses/>.
-*/
-namespace LSS;
-ld('session','url');
+ */
+namespace LSS\Account;
 
-abstract class ClientSession extends Session {
+use \LSS\Url;
+
+abstract class ClientSession extends \LSS\Session {
 	public static function init(){
 		self::$config_name		= 'client';
 		self::$session_name		= 'client_token';

@@ -56,7 +56,7 @@ Usage
 ====
 
 ```php
-ld('account');
+use \LSS\Db;
 
 //connect
 Db::_get()->setConfig($dbconfig)->connect();

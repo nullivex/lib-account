@@ -17,11 +17,10 @@
  *	You should have received a copy of the 
  *	GNU Lesser General Public License along with OpenLSS.
  *	If not, see <http://www.gnu.org/licenses/>.
-*/
-namespace LSS;
-ld('account');
+ */
+namespace LSS\Account;
 
-abstract class Client extends Account implements AccountInterface {
+abstract class Client extends \LSS\Account implements \LSS\AccountInterface {
 
 	static $accounts_table = 'clients';
 	static $account_key = 'client_id';

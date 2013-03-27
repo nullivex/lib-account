@@ -20,16 +20,11 @@
  */
 namespace LSS;
 
-interface AccountInterface {
-	public static function createParams();
-	public static function create($data);
-	public static function all();
-	public static function get($account_id);
-	public static function getByContact($contact_id);
-	public static function getByEmail($email,$except=false);
-	public static function register($data);
-}
-						     
+use \Exception;
+use \LSS\Config;
+use \LSS\Db;
+use \LSS\Validate;
+
 abstract class Account {
 
 	static $accounts_table = NULL;
@@ -197,10 +192,9 @@ abstract class Account {
 
 	final public static function contactDrop($account_id=null,$value=null,$name='contact_id'){
 		if(is_null($account_id)) return false;
-		ld('ui_form_drop');
 		$arr = array();
 		foreach(self::getContacts($account_id) as $contact) $arr[$contact['contact_id']] = $contact['first_name'].' '.$contact['last_name'].' <'.$contact['email'].'>';
-		$drop = FormDrop::_get()->setOptions($arr);
+		$drop = \LSS\Form\Drop::_get()->setOptions($arr);
 		$drop->setName($name);
 		$drop->setValue($value);
 		return $drop;

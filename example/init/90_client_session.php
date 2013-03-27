@@ -17,9 +17,11 @@
  *	You should have received a copy of the 
  *	GNU Lesser General Public License along with OpenLSS.
  *	If not, see <http://www.gnu.org/licenses/>.
-*/
-namespace LSS;
-ld('config','client','client_session','func/ui','url');
+ */
+use \LSS\Account\Client;
+use \LSS\Account\ClientSession;
+use \LSS\Config;
+use \LSS\Url;
 
 if(session_id() != ''){
 	//check for session
@@ -33,8 +35,8 @@ if(session_id() != ''){
 			//set tpl globals (if Tpl is available)
 			if(is_callable(array('Tpl','_get'))){
 				Tpl::_get()->set(array(
-					 'staff_name'		=>	ClientSession::get('name')
-					,'staff_lastlogin'	=>	date(Config::get('date','general_format'),ClientSession::get('last_login'))
+					 'client_name'		=>	ClientSession::get('name')
+					,'client_lastlogin'	=>	date(Config::get('date','general_format'),ClientSession::get('last_login'))
 				));
 			}
 		} else {

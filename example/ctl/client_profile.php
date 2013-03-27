@@ -18,8 +18,10 @@
  *	GNU Lesser General Public License along with OpenLSS.
  *	If not, see <http://www.gnu.org/licenses/>.
 */
-namespace LSS;
-ld('client','client_session','func/ui','tpl','url');
+use \LSS\Account\Client;
+use \LSS\Account\ClientSession;
+use \LSS\Tpl;
+use \LSS\Url;
 
 if(post('edit')){
 	try {

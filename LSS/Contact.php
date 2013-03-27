@@ -20,6 +20,8 @@
  */
 namespace LSS;
 
+use \LSS\Db;
+
 abstract class Contact {
 
 	const SHIP = 'ship';
@@ -171,11 +173,10 @@ abstract class Contact {
 	}
 
 	final public static function contactDrop($account_id=null,$contact_type=null,$value=null,$name='contact_id',$format=self::FA_NAME){
-		ld('ui_form_drop');
 		$arr = array();
 		foreach(self::allByAccountAndType($account_id,array($contact_type,self::BOTH)) as $contact)
 			$arr[$contact['contact_id']] = self::$format($contact);
-		$drop = FormDrop::_get()->setOptions($arr);
+		$drop = \LSS\Form\Drop::_get()->setOptions($arr);
 		$drop->setName($name);
 		$drop->setValue($value);
 		return $drop;
