@@ -23,9 +23,9 @@ namespace LSS;
 interface AccountInterface {
 	public static function createParams();
 	public static function create($data);
-	public static function all();
-	public static function get($account_id);
-	public static function getByContact($contact_id);
-	public static function getByEmail($email,$except=false);
+	public static function fetchAll();
+	public static function fetch($account_id);
+	public static function fetchByContact($contact_id);
+	public static function fetchByEmail($email,$except=false);
 	public static function register($data);
 }

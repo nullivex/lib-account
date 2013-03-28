@@ -22,7 +22,7 @@ use \LSS\Url;
 
 //register Url::home() if not already
 if(!Url::_isCallable('home'))
-	Url::_register('home','/index.php')i;
+	Url::_register('home','/index.php');
 
 Url::_register('client',Url::home().'?act=client');
 Url::_register('profile',Url::client().'&do=profile');

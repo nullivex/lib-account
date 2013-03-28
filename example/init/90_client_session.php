@@ -28,8 +28,8 @@ if(session_id() != ''){
 	try {
 		if(ClientSession::checkLogin()){
 			//register session
-			$token = ClientSession::getByToken(ClientSession::getTokenFromSession());
-			$session = array_merge(Client::get($token['staff_id']),$token);
+			$token = ClientSession::fetchByToken(ClientSession::getTokenFromSession());
+			$session = array_merge(Client::fetch($token['staff_id']),$token);
 			ClientSession::storeSession($session);
 			unset($session,$token);
 			//set tpl globals (if Tpl is available)

@@ -26,7 +26,7 @@ use \LSS\Url;
 if(post('login')){
 	try {
 		//get the client member
-		$client = Client::getByEmail(post('email'));
+		$client = Client::fetchByEmail(post('email'));
 		if(!$client) throw new Exception('Client member doesnt exist');
 		//check password
 		if(!bcrypt_check(post('password'),$client['password']))

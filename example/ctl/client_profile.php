@@ -33,5 +33,5 @@ if(post('edit')){
 	}
 }
 
-$params = array_merge(Client::get(ClientSession::get('client_id')),post());
+$params = array_merge(Client::fetch(ClientSession::get('client_id')),post());
 Tpl::_get()->output('client_profile',$params);

@@ -130,9 +130,9 @@ Updates a record in the database
 Fetches a single row from a query and returns the result
   * $stmt				The SQL query
   * $params				Parameters to be bound to the query
-  * $throw_exception	When set to DB::EXCEPTIONS will throw an exception on result not found
+  * $throw_exception	When set to Db::EXCEPTIONS will throw an exception on result not found
   * $except_cde			Code to be throw with the exception
-  * $flatten			When set to DB::FLATTEN will return an array of values from a specific column
+  * $flatten			When set to Db::FLATTEN will return an array of values from a specific column
 
 
 Protected internal macro functions
@@ -140,7 +140,7 @@ Protected internal macro functions
 These are to be used internally by the extending class, and are used internally within the
 methods in the Account parent abstract class, if the methods are not extended.
 
-### (array of results) Account::_all($pairs=array())
+### (array of results) Account::_fetchAll($pairs=array())
 Protected internal macro function;
 Optionally restricted by the raw $pairs which are passed direct to Db::prepWhere()
 Returns Db::fetchAll() from the selected target tables, augmented via addMacroFields().
@@ -151,22 +151,22 @@ This creates entries in both the Contacts table and the Accounts table.
 Returns the (int)Account_ID of the resulting new Account, or (bool)false on any error.
 
 	protected static function _createParams($extra=array())
-	protected static function _getByEmail($pairs=array(),$except)
-	protected static function _get($pairs=array())
+	protected static function _fetchByEmail($pairs=array(),$except)
+	protected static function _fetch($pairs=array())
 ### (array result) protected static function addMacroFields($c)
 	protected static function getQuery()
 	final public static function auth($password,&$c)
 	final public static function contactDrop($account_id=null,$value=null,$name='contact_id')
 	final public static function deactivate($id,$contact=true)
 	final public static function delete($id,$contact=true)
-	final public static function getContacts($account_id)
+	final public static function fetchContacts($account_id)
 	final public static function update($account_id,$data)
 	final public static function updateLastLogin(&$c)
 	final public static function validate($data,$password=true)
-	public static function all();
+	public static function fetchAll();
 	public static function create($data);
 	public static function createParams();
-	public static function get($account_id);
-	public static function getByContact($contact_id);
-	public static function getByEmail($email,$except=false);
+	public static function fetch($account_id);
+	public static function fetchByContact($contact_id);
+	public static function fetchByEmail($email,$except=false);
 	public static function register($data);

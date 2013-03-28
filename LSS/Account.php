@@ -98,15 +98,15 @@ abstract class Account {
 		;
 	}
 
-	protected static function _all($pairs=array()){
-		$where = Db::prepwhere($pairs);
+	protected static function _fetchAll($pairs=array()){
+		$where = Db::prepWhere($pairs);
 		$result = Db::_get()->fetchAll(self::getQuery().array_shift($where),$where);
 		foreach($result as &$row) self::addMacroFields($row);
 		return $result;
 	}
 
-	protected static function _get($pairs=array()){
-		$where = Db::prepwhere($pairs);
+	protected static function _fetch($pairs=array()){
+		$where = Db::prepWhere($pairs);
 		return self::addMacroFields(Db::_get()->fetch(
 			 self::getQuery().array_shift($where)
 			,$where
@@ -114,8 +114,8 @@ abstract class Account {
 		);
 	}
 
-	protected static function _getByEmail($pairs=array(),$except){
-		$where = Db::prepwhere($pairs);
+	protected static function _fetchByEmail($pairs=array(),$except){
+		$where = Db::prepWhere($pairs);
 		return self::addMacroFields(Db::_get()->fetch(
 			 self::getQuery().array_shift($where)
 			,$where
@@ -180,9 +180,9 @@ abstract class Account {
 		return $auth;
 	}
 
-	final public static function getContacts($account_id){
+	final public static function fetchContacts($account_id){
 		$pairs[static::$contacts_table.'.contact_account_table'] = static::$accounts_table;
-		$where = Db::prepwhere(array(static::$account_key=>$account_id));
+		$where = Db::prepWhere(array(static::$account_key=>$account_id));
 		return Db::_get()->fetchAll(
 			 'SELECT * FROM `'.static::$contacts_table.'`'
 		    .array_shift($where)
@@ -193,7 +193,7 @@ abstract class Account {
 	final public static function contactDrop($account_id=null,$value=null,$name='contact_id'){
 		if(is_null($account_id)) return false;
 		$arr = array();
-		foreach(self::getContacts($account_id) as $contact) $arr[$contact['contact_id']] = $contact['first_name'].' '.$contact['last_name'].' <'.$contact['email'].'>';
+		foreach(self::fetchContacts($account_id) as $contact) $arr[$contact['contact_id']] = $contact['first_name'].' '.$contact['last_name'].' <'.$contact['email'].'>';
 		$drop = \LSS\Form\Drop::_get()->setOptions($arr);
 		$drop->setName($name);
 		$drop->setValue($value);

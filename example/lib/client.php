@@ -41,29 +41,29 @@ abstract class Client extends \LSS\Account implements \LSS\AccountInterface {
 		);
 	}
 
-	public static function all(){
-		return self::_all(array(
+	public static function fetchAll(){
+		return self::_fetchAll(array(
 			  static::$accounts_table.'.is_active'		=> 1
 			 )
 		);
 	}
 
-	public static function get($client_id){
-		return self::_get(array(
+	public static function fetch($client_id){
+		return self::_fetch(array(
 			 static::$accounts_table.'.client_id'		=> $client_id
 			)
 		);
 	}
 
-	public static function getByContact($contact_id){
-		return self::_get(array(
+	public static function fetchByContact($contact_id){
+		return self::_fetch(array(
 			 static::$contacts_table.'.contact_id'		=> $contact_id
 			)
 		);
 	}
 
-	public static function getByEmail($email,$except=false){
-		return self::_getByEmail(array(
+	public static function fetchByEmail($email,$except=false){
+		return self::_fetchByEmail(array(
 			 static::$contacts_table.'.email'			=> $email
 			)
 			,$except

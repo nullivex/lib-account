@@ -43,20 +43,16 @@ abstract class Contact {
 
 	final protected static function _fetch(&$pairs,$all=false){
 		$select = 'SELECT * FROM `'.static::$contacts_table.'`';
-		$where = Db::prepwhere($pairs);
+		$where = Db::prepWhere($pairs);
 		$func = ($all?'fetchAll':'fetch');
 		return Db::_get()->$func($select.array_shift($where),$where);
 	}
 	
-	final protected static function fetch($pairs=array()){
-		return self::addMacroFields(self::_fetch($pairs));
-	}
-
 	final protected static function fetchAll($pairs=array()){
 		return self::addMacroFields(self::_fetch($pairs,true),true);
 	}
 
-	final public static function allByAccount($account_id){
+	final public static function fetchAllByAccount($account_id){
 		return self::fetchAll(array(
 			 static::$account_key			=> $account_id
 			,'contact_is_active'		=> 1
@@ -64,7 +60,7 @@ abstract class Contact {
 		);
 	}
 
-	final public static function allByAccountAndType($account_id,$contact_type){
+	final public static function fetchAllByAccountAndType($account_id,$contact_type){
 		if(!is_array($contact_type)) $contact_type = array($contact_type);
 		return self::fetchAll(array(
 			 static::$account_key			=> $account_id
@@ -74,9 +70,12 @@ abstract class Contact {
 		);
 	}
 	
-	final public static function get($contact_id){
-		return self::fetch(array('contact_id'=>$contact_id));
+	final public static function fetch($pairs=array()){
+		if(!is_array($pairs) && is_numeric($pairs))
+			$pairs = array('contact_id'=>$pairs);
+		return self::addMacroFields(self::_fetch($pairs));
 	}
+
 	
 	final public static function createParams(){
 		return array(
@@ -141,7 +140,7 @@ abstract class Contact {
 		//crypt the password if it changed (and confirmed password matches)
 		if(mda_get($data,'password') === mda_get($data,'confirm_password')) $params['contact_password'] = bcrypt(mda_get($data,'password'));
 		//update the contact info only if something changed
-		if(self::digest(self::get($contact_id)) !== self::digest($data)){
+		if(self::digest(self::fetch($contact_id)) !== self::digest($data)){
 			$params = array_merge($params,array(
 				 'first_name'		=> mda_get($data,'first_name')
 				,'last_name'		=> mda_get($data,'last_name')
@@ -174,7 +173,7 @@ abstract class Contact {
 
 	final public static function contactDrop($account_id=null,$contact_type=null,$value=null,$name='contact_id',$format=self::FA_NAME){
 		$arr = array();
-		foreach(self::allByAccountAndType($account_id,array($contact_type,self::BOTH)) as $contact)
+		foreach(self::fetchAllByAccountAndType($account_id,array($contact_type,self::BOTH)) as $contact)
 			$arr[$contact['contact_id']] = self::$format($contact);
 		$drop = \LSS\Form\Drop::_get()->setOptions($arr);
 		$drop->setName($name);
