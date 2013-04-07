@@ -212,14 +212,14 @@ abstract class Account {
 		$c['contact_id_display']			= sprintf('%08d',mda_get($c,'contact_id'));
 		$c['account_id_display']			= mda_get($c,'__is_account') ? sprintf('%08d',mda_get($c,'account_id')) : '(none)';
 		//generate standard displayed dates
-		$c['created_display']				= date(Config::get('date','standard_format'),mda_get($c,'created'));
-		$c['contact_created_display']		= date(Config::get('date','standard_format'),mda_get($c,'contact_created'));
+		$c['created_display']				= date(Config::get('account.date.standard_format'),mda_get($c,'created'));
+		$c['contact_created_display']		= date(Config::get('account.date.standard_format'),mda_get($c,'contact_created'));
 		$c['last_login_display']			= (mda_get($c,'last_login')>0)
-												? date(Config::get('date','standard_format'),mda_get($c,'last_login'))
+												? date(Config::get('account.date.standard_format'),mda_get($c,'last_login'))
 												: '(never)'
 												;
 		$c['contact_last_login_display']	= (mda_get($c,'contact_last_login')>0)
-												? date(Config::get('date','standard_format'),mda_get($c,'contact_last_login'))
+												? date(Config::get('account.date.standard_format'),mda_get($c,'contact_last_login'))
 												: '(never)'
 												;
 		$c['header_last_login'] = mda_get($c,'contact_last_login_display');

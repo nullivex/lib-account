@@ -39,5 +39,6 @@
 		"psr-0": {
 			"LSS":	""
 		}
+		,"files":	["src/config.php"]
 	}
 }
