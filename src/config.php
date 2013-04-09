@@ -20,3 +20,6 @@
  */
 
 $config['account']['date']['standard_format'] = 'Y-m-d H:i:s T';
+
+\LSS\Config::setDefaults($config);
+unset($config);
