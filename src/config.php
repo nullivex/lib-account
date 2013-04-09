@@ -19,6 +19,7 @@
  *	If not, see <http://www.gnu.org/licenses/>.
  */
 
+$config['account']['date']['general_format'] = 'Y-m-d H:i:s T';
 $config['account']['date']['standard_format'] = 'Y-m-d H:i:s T';
 
 \LSS\Config::setDefaults($config);
