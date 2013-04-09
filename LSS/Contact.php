@@ -27,7 +27,7 @@ abstract class Contact {
 	const SHIP = 'ship';
 	const BILL = 'bill';
 	const BOTH = 'both';
-	
+
 	//format constants
 	const FA_LINE_SHORT 	= 'formatLineShort';
 	const FA_LINE_LONG 		= 'formatLineLong';
@@ -47,7 +47,7 @@ abstract class Contact {
 		$func = ($all?'fetchAll':'fetch');
 		return Db::_get()->$func($select.array_shift($where),$where);
 	}
-	
+
 	final protected static function fetchAll($pairs=array()){
 		return self::addMacroFields(self::_fetch($pairs,true),true);
 	}
@@ -69,14 +69,14 @@ abstract class Contact {
 			)
 		);
 	}
-	
+
 	final public static function fetch($pairs=array()){
 		if(!is_array($pairs) && is_numeric($pairs))
 			$pairs = array('contact_id'=>$pairs);
 		return self::addMacroFields(self::_fetch($pairs));
 	}
 
-	
+
 	final public static function createParams(){
 		return array(
 			 'first_name'	=> ''
@@ -93,7 +93,7 @@ abstract class Contact {
 			,'country'		=> 'US'
 		);
 	}
-	
+
 	final public static function digest(&$data){
 		return hash('sha1'
 			,mda_get($data,'phone')
@@ -133,7 +133,7 @@ abstract class Contact {
 			)
 		);
 	}
-	
+
 	final public static function update($contact_id,$data){
 		$params = array();
 		$params['contact_updated'] = time();
@@ -166,7 +166,7 @@ abstract class Contact {
 		}
 		return null;
 	}
-	
+
 	final public static function deactivate($contact_id){
 		return Db::_get()->update(static::$accounts_table,'contact_id',$contact_id,array('contact_is_active'=>0));
 	}
@@ -192,7 +192,7 @@ abstract class Contact {
 		return $arr;
 	}
 
-	
+
 	//---------------------------
 	//FORMATTING FUNCTIONS
 	//---------------------------
@@ -201,14 +201,14 @@ abstract class Contact {
 		if(($p === '')||($p===null)) return '';
 		return sprintf('(%03d)%03d-%04d',substr($p,0,3),substr($p,3,3),substr($p,6));
 	}
-	
+
 	final public static function formatName(&$contact){
 		return
 			 ( mda_get($contact,'first_name') 	? 	  mda_get($contact,'first_name') 		: '' )
 			.( mda_get($contact,'last_name') 	? ' '.mda_get($contact,'last_name') 		: '' )
 		;
 	}
-	
+
 	final public static function formatNameEmail(&$contact){
 		return
 			 ( mda_get($contact,'first_name') 	? 	  mda_get($contact,'first_name') 		: '' )
@@ -216,7 +216,7 @@ abstract class Contact {
 			.( mda_get($contact,'email') 		? '<'.mda_get($contact,'email').'>' 		: '' )
 		;
 	}
-	
+
 	final public static function formatLineShort(&$contact){
 		return
 			 ( mda_get($contact,'address_1') 	? '  '.mda_get($contact,'address_1') 		: '' )

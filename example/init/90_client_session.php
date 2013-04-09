@@ -36,7 +36,7 @@ if(session_id() != ''){
 			if(is_callable(array('Tpl','_get'))){
 				Tpl::_get()->set(array(
 					 'client_name'		=>	ClientSession::get('name')
-					,'client_lastlogin'	=>	date(Config::get('date','general_format'),ClientSession::get('last_login'))
+					,'client_lastlogin'	=>	date(Config::get('account.date.general_format'),ClientSession::get('last_login'))
 				));
 			}
 		} else {
